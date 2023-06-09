@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ops
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mkoellges/argocd-ops.git
+    targetRevision: HEAD
+    path: bootstrap
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: guestbook
