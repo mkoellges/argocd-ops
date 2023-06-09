@@ -9,6 +9,15 @@ spec:
     repoURL: https://github.com/mkoellges/argocd-ops.git
     targetRevision: HEAD
     path: bootstrap
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: guestbook
+    namespace: argocd
+  syncPolicy:
+    syncOptions:
+    - PrunePropagationPolicy=foreground
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+    - Replace=true
+    - ServerSideApply=true
