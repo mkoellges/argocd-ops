@@ -9,6 +9,7 @@ spec:
     repoURL: https://aquasecurity.github.io/helm-charts/
     helm:
       releaseName: starboard-operator
+    targetRevision:  latest
   destination:
     server: "https://kubernetes.default.svc"
     namespace: starboard  
