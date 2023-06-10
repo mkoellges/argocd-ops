@@ -11,4 +11,4 @@ controller:
       annotations:
         ingressClassName: nginx
   nodeSelector:
-    ingress : worker
+    ingress: worker
