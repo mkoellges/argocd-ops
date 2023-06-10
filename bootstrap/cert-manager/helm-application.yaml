@@ -11,7 +11,7 @@ spec:
     helm:
       releaseName: cert-manager
       valueFiles:
-        - values.yaml
+        - cert-manager-values.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cert-manager
