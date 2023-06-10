@@ -15,9 +15,4 @@ spec:
     server: https://kubernetes.default.svc
     namespace: argocd
   syncPolicy:
-    syncOptions:
-    - PrunePropagationPolicy=foreground
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-    - Replace=true
-    - ServerSideApply=true
+    automated: {}
