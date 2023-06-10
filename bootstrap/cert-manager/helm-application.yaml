@@ -14,4 +14,7 @@ spec:
     server: "https://kubernetes.default.svc"
     namespace: cert-manager
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
