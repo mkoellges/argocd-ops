@@ -10,8 +10,8 @@ spec:
     targetRevision:  v1.9.1
     helm:
       releaseName: cert-manager
-      valueFiles:
-        - values.yaml
+      values: |
+        installCRDs: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cert-manager
