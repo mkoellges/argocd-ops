@@ -1,1 +1,2 @@
-installCRDs: true
+global:
+  installCRDs: true
