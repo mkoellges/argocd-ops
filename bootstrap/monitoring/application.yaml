@@ -7,10 +7,10 @@ spec:
   source:
     repoURL: https://github.com/mkoellges/monitoring.git
     targetRevision: HEAD
-    path: /argocd
+    path: argocd
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: ingress-nginx
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
