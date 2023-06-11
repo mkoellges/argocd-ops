@@ -12,11 +12,11 @@ spec:
       prune: true
       allowEmpty: true
       selfHeal: true
-      replace: true      
+      replace: true
   source:
     chart: kube-prometheus-stack
-    repoURL:  https://prometheus-community.github.io/helm-charts
-    targetRevision:  4.1.4
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 46.8.0
     helm:
       releaseName: prometheus-stack
       values: |
