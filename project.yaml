@@ -32,7 +32,7 @@ spec:
   sourceRepos:
   - '*'
   destinations:
-  - namespace: example-app
+  - namespace: example-app-dev
     server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''
