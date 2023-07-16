@@ -33,7 +33,7 @@ spec:
   - '*'
   destinations:
   - namespace: example-app-dev
-    server: https://kubernetes.default.svc
+    server: '*'
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace
