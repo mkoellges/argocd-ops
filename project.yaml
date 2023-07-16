@@ -18,20 +18,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-
----
-apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
-  name: example-app
-  namespace: argocd # this ns is a must, as the project must be deployed in the same ns where argocd lives
-spec:
-  description: System-level cluster configurations
-  sourceRepos:
-    - '*'
-  destinations:
-    - namespace: '*' # this allows all ns, to disallow certain ns use '!ns' for example namespace: '!istio-system'
-      server: '*'
-  clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
