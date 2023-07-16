@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/mkoellges/argocd-demo-app.git
     targetRevision: HEAD
-    path: example-app/overlay/prod
+    path: example-app/overlay/production
     directory:
       recurse: true
   destination:
