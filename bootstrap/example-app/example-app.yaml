@@ -1,29 +1,21 @@
+---
 apiVersion: argoproj.io/v1alpha1
-kind: AppProject
+kind: Application
 metadata:
-  name: example-app
+  name: dev
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
-  description: "example-app project"
-  sourceRepos:
-  - '*'
-  destinations:
-  - namespace: 'example-app'
+  project: example-app
+  source:
+    repoURL: https://github.com:mkoellges/argocd-demo-app.git
+    targetRevision: HEAD
+    path: example-app/overlay/dev
+    directory:
+      recurse: true
+  destination:
     server: https://kubernetes.default.svc
-  clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
-  namespaceResourceWhitelist:
-  - group: "*"
-    kind: "*"
-  roles:
-  - name: "backend-app-admin"
-    description: "Backend team's deployment role"
-    policies:
-    - p, proj:backend:backend-app-admin, applications, *, backend/*, allow
-    groups:
-    - "Backend"
-  orphanedResources:
-    warn: true
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
