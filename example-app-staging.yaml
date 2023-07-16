@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/mkoellges/argocd-ops.git
+    repoURL: https://github.com/mkoellges/example-app.git
     targetRevision: HEAD
-    path: example-app/staging
+    path: k8s/overlay/staging
     directory:
       recurse: true
   destination:
