@@ -18,3 +18,34 @@ spec:
     automated:
       prune: true
       selfHeal: true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: example-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: "example-app project"
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: 'example-app'
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  namespaceResourceWhitelist:
+  - group: "*"
+    kind: "*"
+  roles:
+  - name: "backend-app-admin"
+    description: "Backend team's deployment role"
+    policies:
+    - p, proj:backend:backend-app-admin, applications, *, backend/*, allow
+    groups:
+    - "Backend"
+  orphanedResources:
+    warn: true
