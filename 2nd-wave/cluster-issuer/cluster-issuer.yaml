@@ -3,8 +3,6 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-prod
-  annotations:
-    argocd.argoproj.io/sync-wave: "20"
 spec:
   acme:
     # The ACME server URL
@@ -25,8 +23,6 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-staging
-  annotations:
-    argocd.argoproj.io/sync-wave: "20"
 spec:
   acme:
     # The ACME server URL

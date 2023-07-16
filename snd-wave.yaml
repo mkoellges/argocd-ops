@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ops
+  name: 2nd-wave
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "2"
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/mkoellges/argocd-ops.git
     targetRevision: HEAD
-    path: bootstrap
+    path: 2nd-wave
     directory:
       recurse: true
   destination:
