@@ -2,19 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: example-app-preprod
+  name: example-app-staging
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/mkoellges/argocd-demo-app.git
     targetRevision: HEAD
-    path: example-app/overlay/preprod
+    path: example-app/overlay/staging
     directory:
       recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: example-app-preprod
+    namespace: example-app-staging
   syncPolicy:
     automated:
       prune: true
