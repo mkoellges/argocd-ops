@@ -7,7 +7,7 @@ metadata:
 spec:
   project: example-app
   source:
-    repoURL: https://github.com:mkoellges/argocd-demo-app.git
+    repoURL: https://github.com/mkoellges/argocd-demo-app.git
     targetRevision: HEAD
     path: example-app/overlay/dev
     directory:
