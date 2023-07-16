@@ -24,28 +24,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: example-app
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  namespace: argocd # this ns is a must, as the project must be deployed in the same ns where argocd lives
 spec:
-  description: "example-app project"
+  description: System-level cluster configurations
   sourceRepos:
-  - '*'
+    - '*'
   destinations:
-  - namespace: argocd
-    server: 'https://kubernetes.default.svc'
+    - namespace: '*' # this allows all ns, to disallow certain ns use '!ns' for example namespace: '!istio-system'
+      server: '*'
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
-  namespaceResourceWhitelist:
-  - group: "*"
-    kind: "*"
-  roles:
-  - name: "backend-app-admin"
-    description: "Backend team's deployment role"
-    policies:
-    - p, proj:backend:backend-app-admin, applications, *, backend/*, allow
-    groups:
-    - "Backend"
-  orphanedResources:
-    warn: true
+    - group: '*'
+      kind: '*'
