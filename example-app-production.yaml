@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example-app-production
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mkoellges/argocd-ops.git
+    targetRevision: HEAD
+    path: example-app/production
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
