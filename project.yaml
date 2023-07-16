@@ -32,8 +32,8 @@ spec:
   sourceRepos:
   - '*'
   destinations:
-  - namespace: example-app-dev
-    server: '*'
+  - namespace: argocd
+    server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace
