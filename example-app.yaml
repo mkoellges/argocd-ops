@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dev
+  name: example-app-dev
   annotations:
     argocd.argoproj.io/sync-wave: "3"
   namespace: argocd
 spec:
-  project: example-app
+  project: default
   source:
     repoURL: https://github.com/mkoellges/example-app.git
     targetRevision: HEAD
