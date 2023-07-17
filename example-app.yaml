@@ -18,7 +18,7 @@ spec:
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   # Destination clusters can be identified by 'server', 'name', or both.
   destinations:
-  - namespace: example-app
+  - namespace: argocd
     server: https://kubernetes.default.svc
     name: in-cluster
 
