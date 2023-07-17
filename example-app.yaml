@@ -98,7 +98,7 @@ spec:
     path: k8s/overlay/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: example-app-dev
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
@@ -120,7 +120,7 @@ spec:
     path: k8s/overlay/staging
   destination:
     server: https://kubernetes.default.svc
-    namespace: example-app-staging
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
@@ -142,7 +142,7 @@ spec:
     path: k8s/overlay/production
   destination:
     server: https://kubernetes.default.svc
-    namespace: example-app-production
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
