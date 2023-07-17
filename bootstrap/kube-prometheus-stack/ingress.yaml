@@ -10,10 +10,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - monitoring.koellgma.de
+        - monitor.koellgma.de
       secretName: monitoring-tls
   rules:
-    - host: monitoring.koellgma.de
+    - host: monitor.koellgma.de
       http:
         paths:
           - path: /
@@ -36,10 +36,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - prometheus.koellgma.de
+        - prom.koellgma.de
       secretName: prometheus-tls
   rules:
-    - host: prometheus.koellgma.de
+    - host: prom.koellgma.de
       http:
         paths:
           - path: /
