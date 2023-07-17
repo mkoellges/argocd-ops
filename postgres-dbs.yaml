@@ -33,3 +33,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: databases
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
