@@ -25,7 +25,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "3"
   namespace: argocd
 spec:
-  project: databases
+  project: postgres-dbs
   source:
     repoURL: https://github.com/mkoellges/postgres.git
     targetRevision: HEAD
