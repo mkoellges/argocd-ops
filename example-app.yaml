@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -14,6 +15,50 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: example-app-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example-app-staging
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mkoellges/example-app.git
+    targetRevision: HEAD
+    path: k8s/overlay/staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: example-app-staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example-app-production
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mkoellges/example-app.git
+    targetRevision: HEAD
+    path: k8s/overlay/production
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: example-app-production
   syncPolicy:
     automated:
       prune: true
