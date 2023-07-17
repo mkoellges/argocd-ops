@@ -7,7 +7,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "3"
   namespace: argocd
 spec:
-  project: default
+  project: example-app
   source:
     repoURL: https://github.com/mkoellges/example-app.git
     targetRevision: HEAD
@@ -29,7 +29,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "3"
   namespace: argocd
 spec:
-  project: default
+  project: example-app
   source:
     repoURL: https://github.com/mkoellges/example-app.git
     targetRevision: HEAD
@@ -51,7 +51,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "3"
   namespace: argocd
 spec:
-  project: default
+  project: example-app
   source:
     repoURL: https://github.com/mkoellges/example-app.git
     targetRevision: HEAD
