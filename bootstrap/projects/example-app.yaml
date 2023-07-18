@@ -31,7 +31,6 @@ spec:
     targetRevision: HEAD
     path: k8s/overlay/dev
   destination:
-    # server: https://kubernetes.default.svc
     name: in-cluster
     namespace: argocd
   syncPolicy:
@@ -54,7 +53,6 @@ spec:
     targetRevision: HEAD
     path: k8s/overlay/staging
   destination:
-    # server: https://kubernetes.default.svc
     name: in-cluster
     namespace: argocd
   syncPolicy:
