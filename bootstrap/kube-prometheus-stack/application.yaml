@@ -91,28 +91,23 @@ spec:
             enabled: true
         kubeApiServer:
           enabled: true
-        kubeControllerManager:
-          enabled: true
-          endpoints:
-            - 192.168.65.4
-        kubeDns:
-          enabled: false
         kubeEtcd:
           enabled: true
-          endpoints:
-            - 192.168.65.4
           service:
-            enabled: true
-            port: 2381
             targetPort: 2381
+        kubeControllerManager:
+          enabled: true
+          service:
+            targetPort: 10257
+        kubeScheduler:
+          service:
+            targetPort: 10259
+        kubeDns:
+          enabled: false
         kubeProxy:
           enabled: true
-          endpoints:
-            - 192.168.65.4
         kubeScheduler:
           enabled: true
-          endpoints:
-            - 192.168.65.4
         kubeStateMetrics:
           enabled: true
         kubelet:
