@@ -21,13 +21,4 @@ spec:
     targetRevision: 5.3.1
     helm:
       releaseName: postgres-operator
-    values: |
-      userInterface:
-        pgAdmin:
-          image: registry.developers.crunchydata.com/crunchydata/crunchy-pgadmin4:ubi8-4.30-13
-          dataVolumeClaimSpec:
-            accessModes:
-            - "ReadWriteOnce"
-            resources:
-              requests:
-                storage: 1Gi
+#      values: |
