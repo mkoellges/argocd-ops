@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pgbouncer
+spec:
+  project: default
+  destination:
+    name: in-cluster
+    namespace: pgbouncer
+  syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+      replace: true
+  source:
+    chart: fold/pgbouncer
+    repoURL: https://charts.foldapp.com
+    targetRevision: 1.0.16
+    helm:
+      releaseName: pgbouncer
+      values: |
+        replicaCount: 1 
+        verbose: 1
+        users:
+          dbuser: psqladmin
+        databases:
+          postgres:
+            host: postgres-application-production.postgres.database.azure.com
+            port: 5432
+            user: psqladmin
+            dbname: postgres
+        connectionLimits:
+          defaultPoolSize: 20
+          minPoolSize: 20
+          reservePoolSize: 20
