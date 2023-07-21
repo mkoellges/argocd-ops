@@ -23,6 +23,8 @@ spec:
       releaseName: pgbouncer
       values: |
         replicaCount: 1 
+        service:
+          type: LoadBalancer
         config:
           adminPassword: myadminpassword
           databases:
