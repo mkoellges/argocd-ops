@@ -18,7 +18,7 @@ spec:
   source:
     chart: pgbouncer
     repoURL: https://icoretech.github.io/helm
-    targetRevision: 1.19.1
+    targetRevision: 2.0.1
     helm:
       releaseName: pgbouncer
       values: |
