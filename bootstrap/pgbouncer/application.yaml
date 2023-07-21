@@ -16,7 +16,7 @@ spec:
       selfHeal: true
       replace: true
   source:
-    chart: fold/pgbouncer
+    chart: pgbouncer
     repoURL: https://charts.foldapp.com
     targetRevision: 1.0.16
     helm:
