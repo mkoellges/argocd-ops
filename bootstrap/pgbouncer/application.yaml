@@ -23,16 +23,9 @@ spec:
       releaseName: pgbouncer
       values: |
         replicaCount: 1 
-        verbose: 1
-        users:
-          dbuser: psqladmin
-        databases:
-          postgres:
-            host: postgres-application-production.postgres.database.azure.com
-            port: 5432
-            user: psqladmin
-            dbname: postgres
-        connectionLimits:
-          defaultPoolSize: 20
-          minPoolSize: 20
-          reservePoolSize: 20
+        config:
+          databases:
+            test-db:
+              host: postgres-application-production.postgres.database.azure.com
+              port: 5432
+        userlist: {}
