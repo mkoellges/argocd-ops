@@ -17,7 +17,7 @@ spec:
       replace: true
   source:
     chart: pgbouncer
-    repoURL: https://charts.foldapp.com
+    repoURL: https://icoretech.github.io/helm
     targetRevision: 1.19.1
     helm:
       releaseName: pgbouncer
