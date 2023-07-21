@@ -43,6 +43,6 @@ spec:
             log_pooler_errors: 1
             application_name_add_host: 1
             # verbose: 1
-          userlist: {}
+          userlist: 
             # SELECT rolname, rolpassword FROM pg_authid;
-            # psqladmin: test
+            pgbouncer: test
