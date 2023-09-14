@@ -6,4 +6,4 @@ helmCharts:
   repo: https://github.com/mkoellges/postgres-operator-examples.git
   version: "5.3.2"
   releaseName: pgo
-  namespace: pgo
+  namespace: argocd
