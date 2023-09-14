@@ -16,6 +16,6 @@ spec:
   source:
     chart: .
     repoURL: https://github.com/mkoellges/pro.git
-    targetRevision: "5.3.2"
+    targetRevision: "main"
     helm:
       releaseName: pgo
