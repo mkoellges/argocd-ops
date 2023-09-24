@@ -6,7 +6,7 @@ spec:
   project: default
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: monitoring
+    namespace: pgo
   syncPolicy:
     automated:
       prune: true
