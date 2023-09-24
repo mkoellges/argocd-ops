@@ -6,7 +6,7 @@ spec:
   project: default
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: pgo
+    namespace: databases
   syncPolicy:
     automated:
       prune: true
