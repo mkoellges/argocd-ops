@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+spec:
+  project: default
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+      replace: true
+  source:
+    repoURL: https://github.com/mkoellges/postgres-operator-examples.git
+    targetRevision: HEAD
+    path: kustomize/monitoring
