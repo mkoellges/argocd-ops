@@ -34,17 +34,3 @@ spec:
         requests:
           cpu: "0.5"
           memory: 128M
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - topologyKey: kubernetes.io/hostname
-              labelSelector:
-                matchExpressions:
-                  - key: v1.min.io/tenant
-                    operator: In
-                    values:
-                      - source
-                  - key: v1.min.io/pool
-                    operator: In
-                    values:
-                      - pool-1
