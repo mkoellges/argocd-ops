@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  config.env: ZXhwb3J0IE1JTklPX0JST1dTRVI9b24KZXhwb3J0IE1JTklPX1JFR0lPTj1sb2NhbC0xCmV4cG9ydCBNSU5JT19TVE9SQUdFX0NMQVNTX1NUQU5EQVJEPUVDOjQKZXhwb3J0IE1JTklPX1JPT1RfVVNFUj1Pd29oZm9vbmcxeWFpOEFlCmV4cG9ydCBNSU5JT19ST09UX1BBU1NXT1JEPXNodTVjaG9vdGFpcmFodGgyYWVMZTRhaENoCg==
+kind: Secret
+metadata:
+  name: minio-configuration
+  namespace: minio-1
+type: Opaque
