@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio-1
+  namespace: minio-1
+spec:
+  project: default
+  source:
+    repoURL: https://gitlab.com/she-ag/cgm/projects/therafox/v2/k8s-deployments.git
+    path: argocd/stage/apps/minio-1
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
