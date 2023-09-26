@@ -28,12 +28,12 @@ spec:
           - ReadWriteOnce
           resources:
             requests:
-              storage: 5Gi
+              storage: 1Gi
           storageClassName: cinder-rbd
       resources:
         requests:
-          cpu: "1"
-          memory: 2Gi
+          cpu: "0.5"
+          memory: 128M
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
