@@ -13,9 +13,6 @@ spec:
   users:
     - name: minio-replication-user
     - name: minio-pgbackrest-user
-  externalCertSecret:
-    - name: minio-tls
-      type: cert-manager.io/v1alpha2
   pools:
     - name: pool-1
       servers: 3
