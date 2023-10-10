@@ -138,8 +138,10 @@ spec:
             replicas: 1
             retention: 6h
             ruleSelectorNilUsesHelmValues: false
-            serviceMonitorSelectorNilUsesHelmValues: false
             walCompression: true
+            serviceMonitorSelectorNilUsesHelmValues: true
+            serviceMonitorSelector: {}
+            serviceMonitorNamespaceSelector: {}
         prometheus-node-exporter:
           extraArgs:
             - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
