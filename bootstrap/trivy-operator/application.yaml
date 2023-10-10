@@ -11,7 +11,8 @@ spec:
     targetRevision: 0.18.1
     helm:
       releaseName: trivy-operator
-      values: []
+    valueFiles:
+      - values.yaml
   syncPolicy:
     automated:
       selfHeal: true
