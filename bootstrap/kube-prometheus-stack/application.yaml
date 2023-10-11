@@ -80,8 +80,6 @@ spec:
           prometheus:
             monitor:
               enabled: true
-              labels:
-                serviceMonitorSelector: prometheus
               relabelings:
                 - action: replace
                   regex: (.*)
@@ -144,7 +142,7 @@ spec:
             serviceMonitorSelectorNilUsesHelmValues: true
             serviceMonitorSelector: 
               matchLabels:
-                serviceMonitorSelector: prometheus
+                app.kubernetes.io/component: metrics
             serviceMonitorNamespaceSelector: {}
         prometheus-node-exporter:
           extraArgs:
