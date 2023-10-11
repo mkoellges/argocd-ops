@@ -142,7 +142,7 @@ spec:
             serviceMonitorSelectorNilUsesHelmValues: true
             serviceMonitorSelector: 
               matchLabels:
-                app.kubernetes.io/component: metrics
+                release: prometheus-stack
             serviceMonitorNamespaceSelector: {}
         prometheus-node-exporter:
           extraArgs:
