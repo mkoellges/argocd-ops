@@ -11,11 +11,11 @@ spec:
     targetRevision: 0.18.1
     helm:
       releaseName: trivy-operator
-    values: |
-      serviceMonitor:
-        enabled: true
-      trivy:
-        ignoreUnfixed: true
+      values: |
+        serviceMonitor:
+          enabled: true
+        trivy:
+          ignoreUnfixed: true
   syncPolicy:
     automated:
       selfHeal: true
