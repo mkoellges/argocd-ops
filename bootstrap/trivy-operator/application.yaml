@@ -12,7 +12,7 @@ spec:
     helm:
       releaseName: trivy-operator
     valueFiles:
-      - values.yaml
+      - trivy-values.yaml
   syncPolicy:
     automated:
       selfHeal: true
