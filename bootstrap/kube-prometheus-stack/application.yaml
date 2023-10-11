@@ -140,7 +140,9 @@ spec:
             ruleSelectorNilUsesHelmValues: false
             walCompression: true
             serviceMonitorSelectorNilUsesHelmValues: true
-            serviceMonitorSelector: {}
+            serviceMonitorSelector: 
+              matchLabels:
+                serviceMonitorSelector: prometheus
             serviceMonitorNamespaceSelector: {}
         prometheus-node-exporter:
           extraArgs:
