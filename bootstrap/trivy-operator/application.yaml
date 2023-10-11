@@ -15,7 +15,7 @@ spec:
         serviceMonitor:
           enabled: true
           labels:
-            serviceMonitorSelector: prometheus
+            release: prometheus-stack
         trivy:
           ignoreUnfixed: true
   syncPolicy:
