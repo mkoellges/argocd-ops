@@ -18,6 +18,8 @@ spec:
             release: prometheus-stack
         trivy:
           ignoreUnfixed: false
+        operator:
+          metricsVulnIdEnabled: true
   syncPolicy:
     automated:
       selfHeal: true
