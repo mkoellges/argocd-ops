@@ -80,6 +80,8 @@ spec:
           prometheus:
             monitor:
               enabled: true
+              labels:
+                serviceMonitorSelector: prometheus
               relabelings:
                 - action: replace
                   regex: (.*)
