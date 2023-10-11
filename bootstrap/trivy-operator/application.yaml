@@ -17,7 +17,7 @@ spec:
           labels:
             release: prometheus-stack
         trivy:
-          ignoreUnfixed: true
+          ignoreUnfixed: false
   syncPolicy:
     automated:
       selfHeal: true
