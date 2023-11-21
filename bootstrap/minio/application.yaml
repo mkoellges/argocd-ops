@@ -41,7 +41,9 @@ spec:
           hostname: minio-api.koellgma.de
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          tls: true
+          extraTls:
+            secrets:
+              - name: minio-api-tls
         persistence:
           enabled: true
           size: 100Gi
