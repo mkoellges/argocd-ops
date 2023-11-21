@@ -37,7 +37,8 @@ spec:
               - name: minio-tls
         apiIngress:
           enabled: true
-          apiIngress.ingressClassName: nginx
+          ingressClassName: nginx
+          hostname: minio-api.koellgma.de
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
           tls: true
