@@ -39,11 +39,11 @@ spec:
           enabled: true
           ingressClassName: nginx
           hostname: minio-api.koellgma.de
-          tls: true
-          secrets:
-            - name: minio-tls
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          # tls: true
+          # secrets:
+          #   - name: minio-tls
+          # annotations:
+          #   cert-manager.io/cluster-issuer: "letsencrypt-prod"
         persistence:
           enabled: true
           size: 100Gi
