@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio
+spec:
+  project: default
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: minio
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: minio
+    targetRevision: 12.10.2
+    helm:
+      values: |
+        global:
+          storageClass: standard
+        statefulset:
+          replicaCount: 5
+          zones: 1
+          drivesPerNode: 1
+        buckets:
+          - name: postgres
+            options:
+              region: eu-01
+          - name: velero
+            options:
+              region: eu-01
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          hostname: minio.koellgma.de
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          extraTls:
+            secrets:
+              - name: minio-tls
+        apiIngress
+          enabled: true
+          apiIngress.ingressClassName: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          tls: true
+        persistence:
+          enabled: true
+          size: 100Gi
+        metrics:
+          enabled: true
+          namespace: monitoring
+          labels:
+            kubernetes.she.net/prometheus-instance: default
+        metrics.prometheusRule:
+          enabled: true
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+      replace: true
+    syncOptions:
+      - CreateNamespace=true
