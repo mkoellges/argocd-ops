@@ -9,7 +9,7 @@ spec:
     namespace: minio
   source:
     repoURL: https://helm.min.io/
-    chart: minio/minio
+    chart: minio
     targetRevision: 8.0.9
     helm:
       values: |
