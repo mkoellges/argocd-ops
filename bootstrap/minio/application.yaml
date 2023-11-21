@@ -35,7 +35,7 @@ spec:
           extraTls:
             secrets:
               - name: minio-tls
-        apiIngress
+        apiIngress:
           enabled: true
           apiIngress.ingressClassName: nginx
           annotations:
