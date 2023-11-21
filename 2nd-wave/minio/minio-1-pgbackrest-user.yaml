@@ -1,9 +1,0 @@
-apiVersion: v1
-data:
-  CONSOLE_ACCESS_KEY: cGdiYWNrcmVzdA==
-  CONSOLE_SECRET_KEY: b29mb282WGFCb2hzaDNhaGgzdHVzb3RlZTM=
-kind: Secret
-metadata:
-  name: minio-pgbackrest-user
-  namespace: minio-1
-type: Opaque
