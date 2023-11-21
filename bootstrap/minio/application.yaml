@@ -43,9 +43,9 @@ spec:
           tls: true
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          # extraTls:
-          #   secrets:
-          #     - name: minio-api-tls
+          extraTls:
+            secrets:
+              - name: minio-api-tls
         persistence:
           enabled: true
           size: 100Gi
