@@ -19,13 +19,14 @@ spec:
           replicaCount: 5
           zones: 1
           drivesPerNode: 1
-        buckets:
-          - name: postgres
-            options:
-              region: eu-01
-          - name: velero
-            options:
-              region: eu-01
+        defaultBuckets: "postgres, velero"
+        # buckets:
+        #   - name: postgres
+        #     options:
+        #       region: eu-01
+        #   - name: velero
+        #     options:
+        #       region: eu-01
         ingress:
           enabled: true
           ingressClassName: nginx
