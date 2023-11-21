@@ -30,8 +30,8 @@ spec:
           enabled: true
           ingressClassName: nginx
           hostname: minio.koellgma.de
-          # annotations:
-            # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
           # extraTls:
             # secrets:
               # - name: minio-tls
@@ -39,8 +39,8 @@ spec:
           enabled: true
           ingressClassName: nginx
           hostname: minio-api.koellgma.de
-          # annotations:
-          #   cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
           # extraTls:
           #   secrets:
           #     - name: minio-api-tls
