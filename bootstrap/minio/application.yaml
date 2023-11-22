@@ -24,13 +24,12 @@ spec:
           enabled: true
           ingressClassName: nginx
           tls: true
+          selfSigned: true
           hostname: minio.koellgma.de
-          secrets:
-            - name: minio.local-tls
-              key: ""
-              certificate: ""
         apiIngress:
           enabled: true
+          tls: true
+          selfSigned: true
           ingressClassName: nginx
           hostname: minio-api.koellgma.de
         persistence:
