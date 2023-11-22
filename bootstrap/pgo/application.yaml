@@ -8,11 +8,13 @@ spec:
     server: "https://kubernetes.default.svc"
     namespace: pgo
   syncPolicy:
-    automated:
-      prune: true
-      allowEmpty: true
-      selfHeal: true
-      replace: true
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - Replace=true
+      - ServerSideApply=true
   source:
     chart: pgo
     repoURL: https://mkoellges.github.io/library/charts
