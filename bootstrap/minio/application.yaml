@@ -24,12 +24,16 @@ spec:
           enabled: true
           ingressClassName: nginx
           tls: true
-          selfSigned: true
+          selfSigned: false
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
           hostname: minio.koellgma.de
         apiIngress:
           enabled: true
           tls: true
-          selfSigned: true
+          selfSigned: false
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
           ingressClassName: nginx
           hostname: minio-api.koellgma.de
         persistence:
