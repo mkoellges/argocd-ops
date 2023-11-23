@@ -20,8 +20,9 @@ spec:
           replicaCount: 5
           zones: 1
           drivesPerNode: 1
-        defaultBuckets: "postgres, velero"
+        # defaultBuckets: "postgres, velero"
         provisioning:
+          enabled: true
           buckets:
             - name: postgres
               region: eu-01
