@@ -22,9 +22,9 @@ spec:
           drivesPerNode: 1
         provisioning:
           enabled: true
-            users:
-              usersExistingSecrets:
-                - centralized-minio-users
+          users:
+            usersExistingSecrets:
+              - centralized-minio-users
           buckets:
             - name: postgres
               region: eu-01
