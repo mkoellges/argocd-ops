@@ -46,14 +46,6 @@ spec:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
           ingressClassName: nginx
           hostname: minio-api.koellgma.de
-          extraHosts:
-            - name: posgtres.minio-api.koellgma.de
-              path: /
-          extraPaths:
-            extraTls:
-              - hosts:
-                  - posgtres.minio-api.koellgma.de
-                secretName: postgres-minio-api-tls
         persistence:
           enabled: true
           size: 100Gi
