@@ -21,25 +21,26 @@ spec:
           zones: 1
           drivesPerNode: 1
         # defaultBuckets: "postgres"
-        buckets:
-          - name: postgres
-            region: eu-01
-            versioning: false
-            withLock: true
-            quota:
-              type: set
-              size: 10GiB
-            tags:
-              database: hippo
-          - name: velero
-            region: eu-01
-            versioning: false
-            withLock: true
-            quota:
-              type: set
-              size: 10GiB
-            tags:
-              backup: velero
+        provisioning:
+          buckets:
+            - name: postgres
+              region: eu-01
+              versioning: false
+              withLock: true
+              quota:
+                type: set
+                size: 10GiB
+              tags:
+                database: hippo
+            - name: velero
+              region: eu-01
+              versioning: false
+              withLock: true
+              quota:
+                type: set
+                size: 10GiB
+              tags:
+                backup: velero
         ingress:
           enabled: true
           ingressClassName: nginx
