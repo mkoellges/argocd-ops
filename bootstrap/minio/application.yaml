@@ -20,7 +20,7 @@ spec:
           replicaCount: 5
           zones: 1
           drivesPerNode: 1
-        # defaultBuckets: "postgres"
+        defaultBuckets: "postgres, velero"
         provisioning:
           buckets:
             - name: postgres
@@ -38,7 +38,7 @@ spec:
               withLock: true
               quota:
                 type: set
-                size: 10GiB
+                size: 1GiB
               tags:
                 backup: velero
         ingress:
