@@ -20,9 +20,11 @@ spec:
           replicaCount: 5
           zones: 1
           drivesPerNode: 1
-        # defaultBuckets: "postgres, velero"
         provisioning:
           enabled: true
+            users:
+              usersExistingSecrets:
+                - centralized-minio-users
           buckets:
             - name: postgres
               region: eu-01
