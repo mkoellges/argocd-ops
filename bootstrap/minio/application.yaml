@@ -17,7 +17,7 @@ spec:
           storageClass: standard
         mode: distributed
         statefulset:
-          replicaCount: 5
+          replicaCount: 3
           zones: 1
           drivesPerNode: 1
         provisioning:
