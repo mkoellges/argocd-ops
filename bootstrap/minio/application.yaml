@@ -22,8 +22,8 @@ spec:
           drivesPerNode: 1
         provisioning:
           enabled: true
-          usersExistingSecrets:
-            - centralized-minio-users
+          # usersExistingSecrets:
+          #   - centralized-minio-users
           policies:
             - name: pgbackrest
               statements:
@@ -40,6 +40,12 @@ spec:
                     - "s3:PutObjectTagging"
                     - "s3:GetObject"
                     - "s3:DeleteObject"
+          users:
+            - username: postgres
+              password: pasword1234
+              disabled: false
+              policies:
+                - pgbackrest
           buckets:
             - name: postgres
               region: eu-01
