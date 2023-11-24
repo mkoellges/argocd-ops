@@ -24,22 +24,22 @@ spec:
           enabled: true
           usersExistingSecrets:
             - centralized-minio-users
-          policies:
-            - name: pgbackrest
-              statements:
-                - resources:
-                    - "arn:aws:s3:::pgbackrest"
-                  effect: "Allow"
-                  actions:
-                    - "s3:ListBucket"
-                - resources:
-                    - "arn:aws:s3:::pgbackrest/*"
-                  effect: "Allow"
-                  actions:
-                    "s3:PutObject",
-                    "s3:PutObjectTagging",
-                    "s3:GetObject",
-                    "s3:DeleteObject"
+          # policies:
+          #   - name: pgbackrest
+          #     statements:
+          #       - resources:
+          #           - "arn:aws:s3:::pgbackrest"
+          #         effect: "Allow"
+          #         actions:
+          #           - "s3:ListBucket"
+          #       - resources:
+          #           - "arn:aws:s3:::pgbackrest/*"
+          #         effect: "Allow"
+          #         actions:
+          #           "s3:PutObject",
+          #           "s3:PutObjectTagging",
+          #           "s3:GetObject",
+          #           "s3:DeleteObject"
           buckets:
             - name: postgres
               region: eu-01
