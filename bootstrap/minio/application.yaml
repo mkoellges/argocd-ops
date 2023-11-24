@@ -63,9 +63,9 @@ spec:
             - name: postgres.minio-api.koellgma.de
               path: /
           extraTls:
-            - hosts:
-              - postgres.minio-api.koellgma.de
-                secretName: postgres.minio-api.koellgma.de-tls
+          - hosts:
+            - postgres.minio-api.koellgma.de
+            secretName: additional.minio-api.koellgma.de-tls
         persistence:
           enabled: true
           size: 100Gi
