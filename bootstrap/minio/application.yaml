@@ -65,7 +65,7 @@ spec:
           extraTls:
             - hosts:
                 - postgres.minio-api.koellgma.de
-              secret: alternate-secrets-minio-tls
+              secretName: alternate-secrets-minio-tls
         persistence:
           enabled: true
           size: 100Gi
