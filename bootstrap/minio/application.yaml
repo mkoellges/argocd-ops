@@ -29,7 +29,6 @@ spec:
               statements:
                 - resources:
                     - "arn:aws:s3:::pgbackrest"
-                  effect: "Allow"
                   actions:
                     - "s3:ListBucket"
                 - resources:
