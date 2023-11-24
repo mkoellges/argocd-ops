@@ -26,24 +26,18 @@ spec:
             - name: pgbackrest
               statements:
                 - resources:
-                    - "arn:aws:s3:::pgbackrest"
+                    - "arn:aws:s3:::postgres"
                   effect: "Allow"
                   actions:
                     - "s3:ListBucket"
                 - resources:
-                    - "arn:aws:s3:::pgbackrest/*"
+                    - "arn:aws:s3:::postgres/*"
                   effect: "Allow"
                   actions:
                     - "s3:PutObject"
                     - "s3:PutObjectTagging"
                     - "s3:GetObject"
                     - "s3:DeleteObject"
-          # users:
-          #   - username: postgres
-          #     password: pasword1234
-          #     disabled: false
-          #     policies:
-          #       - pgbackrest
           usersExistingSecrets:
             - centralized-minio-users
           buckets:
