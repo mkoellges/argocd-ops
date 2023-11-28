@@ -15,11 +15,11 @@ spec:
       values: |
         global:
           storageClass: standard
-        mode: distributed
-        statefulset:
-          replicaCount: 5
-          zones: 1
-          drivesPerNode: 1
+        mode: standalone
+        # statefulset:
+        #   replicaCount: 5
+        #   zones: 1
+        #   drivesPerNode: 1
         provisioning:
           enabled: true
           policies:
