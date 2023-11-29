@@ -66,7 +66,7 @@ spec:
           selfSigned: false
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          hostname: minio.koellgma.de
+          hostname: s3.koellgma.de
         apiIngress:
           enabled: true
           tls: true
@@ -74,13 +74,13 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
           ingressClassName: nginx
-          hostname: minio-api.koellgma.de
+          hostname: s3-api.koellgma.de
           extraHosts:
-            - name: postgres.minio-api.koellgma.de
+            - name: postgres.s3-api.koellgma.de
               path: /
           extraTls:
             - hosts:
-                - postgres.minio-api.koellgma.de
+                - postgres.s3-api.koellgma.de
               secretName: alternate-secrets-minio-tls
         persistence:
           enabled: true
