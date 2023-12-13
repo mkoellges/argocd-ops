@@ -48,8 +48,6 @@ spec:
               quota:
                 type: set
                 size: 10GiB
-              tags:
-                database: hippo
             - name: velero
               region: eu-01
               versioning: false
@@ -57,8 +55,6 @@ spec:
               quota:
                 type: set
                 size: 1GiB
-              tags:
-                backup: velero
         ingress:
           enabled: true
           ingressClassName: nginx
@@ -84,7 +80,7 @@ spec:
               secretName: alternate-secrets-minio-tls
         persistence:
           enabled: true
-          size: 100Gi
+          size: 20Gi
         metrics:
           enabled: true
           namespace: monitoring
