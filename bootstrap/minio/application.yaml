@@ -70,7 +70,7 @@ spec:
           selfSigned: false
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
-            nginx.ingress.kubernetes.io/client-body-buffer-size: 100M
+            nginx.ingress.kubernetes.io/client-body-buffer-size: "100M"
           ingressClassName: nginx
           hostname: s3-api.koellgma.de
           extraHosts:
