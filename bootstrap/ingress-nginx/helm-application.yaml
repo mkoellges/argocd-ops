@@ -27,7 +27,7 @@ spec:
             serviceMonitor:
               enabled: true
             prometheusRule:
-              enabled: true
+              enabled: false
           extraConfigMaps:
             - name: ingress-nginx-controller
               labels:
