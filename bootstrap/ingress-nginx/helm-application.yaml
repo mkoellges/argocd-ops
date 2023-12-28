@@ -17,7 +17,7 @@ spec:
             - labelSelector:
                 matchExpressions:
                 - key: role
-                  operator: notIn
+                  operator: NotIn
                   values:
                   - minio
                   - databases
