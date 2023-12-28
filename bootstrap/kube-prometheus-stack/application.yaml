@@ -23,6 +23,16 @@ spec:
     helm:
       releaseName: prometheus-stack
       values: |
+                affinity:
+                podAffinity:
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                  - labelSelector:
+                      matchExpressions:
+                      - key: role
+                        operator: notIn
+                        values:
+                        - minio
+                        - databases
         hostRootFsMount:
           enabled: false
           mountPropagation: HostToContainer
