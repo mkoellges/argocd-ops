@@ -86,12 +86,12 @@ spec:
         metrics:
           serviceMonitor:
             enabled: true
-            namespace: monitoring
-            labels:
+            namespace: "monitoring"
+            labels: 
               release: prometheus-stack
           prometheusRule:
             enabled: true
-            namespace: monitoring
+            namespace: "monitoring"
   syncPolicy:
     automated:
       prune: true
