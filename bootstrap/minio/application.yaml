@@ -63,7 +63,7 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
             nginx.ingress.kubernetes.io/client-body-buffer-size: "100M"
-          hostname: s3.koellgma.de
+          hostname: minio.koellgma.de
         apiIngress:
           enabled: true
           tls: true
@@ -72,13 +72,13 @@ spec:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
             nginx.ingress.kubernetes.io/client-body-buffer-size: "100M"
           ingressClassName: nginx
-          hostname: s3-api.koellgma.de
+          hostname: minio-api.koellgma.de
           extraHosts:
-            - name: postgres.s3-api.koellgma.de
+            - name: postgres.minio-api.koellgma.de
               path: /
           extraTls:
             - hosts:
-                - postgres.s3-api.koellgma.de
+                - postgres.minio-api.koellgma.de
               secretName: alternate-secrets-minio-tls
         persistence:
           enabled: true
