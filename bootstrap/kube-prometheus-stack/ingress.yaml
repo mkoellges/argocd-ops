@@ -9,11 +9,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - monitor.koellgma.de
+        - grafana.koellgma.de
       secretName: monitoring-tls
   ingressClassName: nginx
   rules:
-    - host: monitor.koellgma.de
+    - host: grafana.koellgma.de
       http:
         paths:
           - path: /
@@ -35,11 +35,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - prom.koellgma.de
+        - prometheus.koellgma.de
       secretName: prometheus-tls
   ingressClassName: nginx
   rules:
-    - host: prom.koellgma.de
+    - host: prometheus.koellgma.de
       http:
         paths:
           - path: /
