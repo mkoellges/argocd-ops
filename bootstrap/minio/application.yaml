@@ -87,7 +87,7 @@ spec:
           enabled: true
           namespace: monitoring
           labels:
-            kubernetes.she.net/prometheus-instance: default
+            release: prometheus-stack
         metrics.prometheusRule:
           enabled: true
   syncPolicy:
