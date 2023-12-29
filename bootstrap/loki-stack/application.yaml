@@ -20,16 +20,6 @@ spec:
     helm:
       releaseName: loki-stack
       values: |
-        affinity:
-          podAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                - key: role
-                  operator: NotIn
-                  values:
-                  - minio
-                  - databases
         grafana:
           enabled: false
           sidecar:

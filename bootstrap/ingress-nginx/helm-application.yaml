@@ -11,16 +11,6 @@ spec:
     helm:
       releaseName: ingress-nginx
       values: |
-        affinity:
-          podAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                - key: role
-                  operator: NotIn
-                  values:
-                  - minio
-                  - databases
         controller:
           hostNetwork: true
           hostPort:
