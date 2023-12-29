@@ -13,11 +13,11 @@ spec:
         prune: true
         selfHeal: true
       syncOptions:
-      - Replace=true
-      - ServerSideApply=true
+        - Replace=true
+        - ServerSideApply=true
   source:
     chart: pgo
     repoURL: https://mkoellges.github.io/library/charts
-    targetRevision: "5.3.2"
+    targetRevision: "5.5.0"
     helm:
       releaseName: pgo
