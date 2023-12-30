@@ -2,12 +2,12 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   creationTimestamp: null
-  name: minio-bucket-dashboard
+  name: loki-dashboard
   namespace: monitoring
   labels:
     grafana_dashboard: "1"
 data:
-  15141_rev1.json: |-
+  loki-dashboard.json: |-
     {
       "__inputs": [
         {
