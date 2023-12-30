@@ -144,6 +144,31 @@ spec:
               matchLabels:
                 release: prometheus-stack
             serviceMonitorNamespaceSelector: {}
+            additionalScrapeConfigs:
+              - job_name: minio-job
+                bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoic2hlLWFkbWluIiwiZXhwIjo0ODU3NTU5MzM1fQ.3ExG3b-sPHJxaReZb_0zgrJkuGCeN2prk_OpOtw-0E2h3ICpCRfqA3dCIK8-0DSObyjGWm8rV6OVUeq1bRXTyw
+                metrics_path: /minio/v2/metrics/cluster
+                scheme: http
+                static_configs:
+                - targets: ['minio.minio.svc:9000']
+              - job_name: minio-job-node
+                bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoic2hlLWFkbWluIiwiZXhwIjo0ODU3NTU5Mzk1fQ.3rnGy7IIl5X6RtU8HSWHEGDiwJQdXsXyeC1nVlrFB62wLGJkvI-evXphYF2wlaq89MsiDgiGSrz-Fja-cWJu5g
+                metrics_path: /minio/v2/metrics/node
+                scheme: http
+                static_configs:
+                - targets: ['minio.minio.svc:9000']
+              - job_name: minio-job-bucket
+                bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoic2hlLWFkbWluIiwiZXhwIjo0ODU3NTU5NDI3fQ.OwJxOSvzXyoPv1VcyfjM1N_GVICU-B35AofNabzYBhwCI6UKcyI1ucvQS1RILOHMA0z7dLOg1CR7ZZdNvUC9_g
+                metrics_path: /minio/v2/metrics/bucket
+                scheme: http
+                static_configs:
+                - targets: ['minio.minio.svc:9000']
+              - job_name: minio-job-resource
+                bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoic2hlLWFkbWluIiwiZXhwIjo0ODU3NTU5NDU5fQ.AAj3zoYZXhPQf_o_EA2g2jVHrIeBugiQu6op1e3a2QcdqRMmZc6qIw0aAYYEGunbUEtZOBCvche3kvErjcbCdQ
+                metrics_path: /minio/v2/metrics/resource
+                scheme: http
+                static_configs:
+                - targets: ['minio.minio.svc:9000']
         prometheus-node-exporter:
           extraArgs:
             - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
