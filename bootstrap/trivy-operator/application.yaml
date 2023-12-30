@@ -22,8 +22,9 @@ spec:
           metricsVulnIdEnabled: true
   syncPolicy:
     automated:
-      selfHeal: true
       prune: true
+      allowEmpty: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
   destination:

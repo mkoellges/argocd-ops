@@ -10,11 +10,9 @@ spec:
   syncPolicy:
     syncPolicy:
       automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - Replace=true
-        - ServerSideApply=true
+      prune: true
+      allowEmpty: true
+      selfHeal: true
   source:
     chart: pgo
     repoURL: https://mkoellges.github.io/library/charts

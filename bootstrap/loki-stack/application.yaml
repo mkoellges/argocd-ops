@@ -12,7 +12,8 @@ spec:
       prune: true
       allowEmpty: true
       selfHeal: true
-      replace: true
+    syncOptions:
+      - CreateNamespace=true
   source:
     chart: loki-stack
     repoURL: https://grafana.github.io/helm-charts
