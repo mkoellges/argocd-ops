@@ -111,7 +111,6 @@ spec:
                     annotations:
                       summary: "Disks down in MinIO deployment"
                       description: "Disks(s) in cluster {{ $labels.instance }} offline for more than 5 minutes"
-
   syncPolicy:
     automated:
       prune: true
