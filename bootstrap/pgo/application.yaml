@@ -9,7 +9,7 @@ spec:
     namespace: pgo
   syncPolicy:
     syncPolicy:
-      automated:
+      automated: true
       prune: true
       allowEmpty: true
       selfHeal: true
