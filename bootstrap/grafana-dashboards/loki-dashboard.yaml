@@ -18,7 +18,7 @@ data:
           "pluginId": "loki",
           "pluginName": "Loki"
         }
-      ],^
+      ],
       "__requires": [
         {
           "type": "grafana",
