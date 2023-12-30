@@ -92,6 +92,8 @@ spec:
           prometheusRule:
             enabled: true
             namespace: "monitoring"
+            additionalLabels:
+              release: prometheus-stack
             rules:
               - name: minio-alerts
                 rules:
