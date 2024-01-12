@@ -26,6 +26,8 @@ Change the Hostname to your appropriate name in
 - bootstrap/kube-prometheus-stack/ingress.yaml
 - bootstrap/minio-operator/application.yaml
 
+Additionally change the ingress hostname in separate project `example-app`, in all three overlay to your own domain.
+
 ## Bootstrap the cluster
 
 ```bash
