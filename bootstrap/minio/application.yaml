@@ -26,7 +26,7 @@ spec:
           zones: 1
           drivesPerNode: 1
         provisioning:
-          # go
+          # go go go
           enabled: true
           policies:
             - name: pgbackrest
