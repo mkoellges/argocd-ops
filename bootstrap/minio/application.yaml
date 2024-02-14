@@ -19,7 +19,7 @@ spec:
           - name: "MINIO_PROMETHEUS_JOB_ID"
             value: "minio"
         global:
-          storageClass: standard
+          storageClass: hostpath
         mode: distributed
         statefulset:
           replicaCount: 5
