@@ -12,11 +12,12 @@ spec:
       prune: true
       allowEmpty: true
       selfHeal: true
-      replace: true      
+    syncOptions:
+      - CreateNamespace=true
   source:
     chart: loki-stack
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision:  2.x
+    targetRevision: 2.9.11
     helm:
       releaseName: loki-stack
       values: |

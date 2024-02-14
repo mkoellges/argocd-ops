@@ -10,17 +10,23 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: minio
-    targetRevision: 12.10.3
+    targetRevision: 13.0.2
     helm:
       values: |
+        extraEnvVars:
+          - name: "MINIO_PROMETHEUS_URL"
+            value: "http://prometheus-prometheus.monitoring.svc.cluster.local:9090"
+          - name: "MINIO_PROMETHEUS_JOB_ID"
+            value: "minio"
         global:
           storageClass: standard
         mode: distributed
         statefulset:
-          replicaCount: 4
+          replicaCount: 5
           zones: 1
           drivesPerNode: 1
         provisioning:
+          # go
           enabled: true
           policies:
             - name: pgbackrest
@@ -48,8 +54,6 @@ spec:
               quota:
                 type: set
                 size: 10GiB
-              tags:
-                database: hippo
             - name: velero
               region: eu-01
               versioning: false
@@ -57,8 +61,6 @@ spec:
               quota:
                 type: set
                 size: 1GiB
-              tags:
-                backup: velero
         ingress:
           enabled: true
           ingressClassName: nginx
@@ -66,37 +68,61 @@ spec:
           selfSigned: false
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          hostname: s3.koellgma.de
+            nginx.ingress.kubernetes.io/client-body-buffer-size: "100M"
+          hostname: minio.koellgma.de
         apiIngress:
           enabled: true
           tls: true
           selfSigned: false
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            nginx.ingress.kubernetes.io/client-body-buffer-size: "100M"
           ingressClassName: nginx
-          hostname: s3-api.koellgma.de
+          hostname: minio-api.koellgma.de
           extraHosts:
-            - name: postgres.s3-api.koellgma.de
+            - name: postgres.minio-api.koellgma.de
               path: /
           extraTls:
             - hosts:
-                - postgres.s3-api.koellgma.de
+                - postgres.minio-api.koellgma.de
               secretName: alternate-secrets-minio-tls
         persistence:
           enabled: true
-          size: 100Gi
+          size: 20Gi
         metrics:
-          enabled: true
-          namespace: monitoring
-          labels:
-            kubernetes.she.net/prometheus-instance: default
-        metrics.prometheusRule:
-          enabled: true
+          serviceMonitor:
+            enabled: true
+            namespace: "monitoring"
+            labels: 
+              release: prometheus-stack
+          prometheusRule:
+            enabled: true
+            namespace: "monitoring"
+            additionalLabels:
+              release: prometheus-stack
+            rules:
+              - name: minio-alerts
+                rules:
+                  - alert: NodesOffline
+                    expr: avg_over_time(minio_cluster_nodes_offline_total{job="minio-job"}[5m]) > 0
+                    for: 10m
+                    labels:
+                      severity: warn
+                    annotations:
+                      summary: "Node down in MinIO deployment"
+                      description: "Node(s) in cluster {{ $labels.instance }} offline for more than 5 minutes"
+                  - alert: DisksOffline
+                    expr: avg_over_time(minio_cluster_drive_offline_total{job="minio-job"}[5m]) > 0
+                    for: 10m
+                    labels:
+                      severity: warn
+                    annotations:
+                      summary: "Disks down in MinIO deployment"
+                      description: "Disks(s) in cluster {{ $labels.instance }} offline for more than 5 minutes"
   syncPolicy:
     automated:
       prune: true
       allowEmpty: true
       selfHeal: true
-      replace: true
     syncOptions:
       - CreateNamespace=true

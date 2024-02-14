@@ -7,7 +7,7 @@ spec:
   source:
     chart: ingress-nginx
     repoURL: https://kubernetes.github.io/ingress-nginx
-    targetRevision:  4.1.4
+    targetRevision:  4.9.0
     helm:
       releaseName: ingress-nginx
       values: |
@@ -20,14 +20,33 @@ spec:
               https: 443
           replicaCount: 1
           metrics:
+            enabled: true
             service:
               annotations:
                 ingressClassName: nginx
+<<<<<<< HEAD
 #          nodeSelector:
 #            ingress: worker
+=======
+            serviceMonitor:
+              enabled: true
+            prometheusRule:
+              enabled: false
+          # extraConfigMaps:
+          #   - name: ingress-nginx-controller
+          #     labels:
+          #       type: config-1
+          #     data:
+          #       log-format-escape-json: "true"
+          #       log-format-upstream: '{"time":"$time_iso8601","remote_addr":"$remote_addr","proxy_protocol_addr":"$proxy_protocol_addr","proxy_protocol_port":"$proxy_protocol_port","x_forward_for":"$proxy_add_x_forwarded_for","remote_user":"$remote_user","host":"$host","request_method":"$request_method","request_uri":"$request_uri","server_protocol":"$server_protocol","status":$status,"request_time":$request_time,"request_length":$request_length,"bytes_sent":$bytes_sent,"upstream_name":"$proxy_upstream_name","upstream_addr":"$upstream_addr","upstream_uri":"$uri","upstream_response_length":$upstream_response_length,"upstream_response_time":$upstream_response_time,"upstream_status":$upstream_status,"http_referrer":"$http_referer","http_user_agent":"$http_user_agent","http_cookie":"$http_cookie","http_device_id":"$http_x_device_id","http_customer_id":"$http_x_customer_id"}'
+          nodeSelector:
+            ingress: worker
+>>>>>>> 3e780af2cf7614313b9729cdee9cfd72a321d47c
   destination:
     server: "https://kubernetes.default.svc"
     namespace: ingress-nginx
   syncPolicy:
     automated:
       prune: true
+      allowEmpty: true
+      selfHeal: true

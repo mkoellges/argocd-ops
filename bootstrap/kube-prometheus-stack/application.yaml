@@ -12,14 +12,13 @@ spec:
       prune: true
       allowEmpty: true
       selfHeal: true
-      replace: true
     syncOptions:
       - ServerSideApply=true
       - CreateNamespace=true
   source:
     chart: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 46.8.0
+    targetRevision: 55.5.0
     helm:
       releaseName: prometheus-stack
       values: |

@@ -7,7 +7,7 @@ spec:
   source:
     chart: cert-manager
     repoURL: https://charts.jetstack.io
-    targetRevision:  v1.9.1
+    targetRevision:  v1.13.3
     helm:
       releaseName: cert-manager
       values: |
@@ -20,4 +20,3 @@ spec:
       prune: true
       allowEmpty: true
       selfHeal: true
-      replace: true
