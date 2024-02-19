@@ -8,14 +8,27 @@ spec:
     version: "1.3.0"
     httpPort: 9200
     vendor: opensearch
-    serviceName: my-cluster
+    serviceName: opensearch-cluster
     monitoring:
       enable: true
     pluginsList: ["repository-s3"]
+  security:
+    config:
+      adminCredentialsSecret:
+        name: admin-credentials-secret
+      securityConfigSecret:
+        name: securityconfig-secret
+    tls:
+      transport:
+        generate: true
+      http:
+        generate: true
   dashboards:
-    version: "1.3.0"
+    opensearchCredentialsSecret:
+      name: admin-credentials-secret
+    version: "2.2.1"
     enable: true
-    replicas: 2
+    replicas: 1
     resources:
       requests:
         memory: "1Gi"
@@ -23,11 +36,9 @@ spec:
       limits:
         memory: "1Gi"
         cpu: "500m"
-  confMgmt:
-    smartScaler: true
   nodePools:
     - component: masters
-      replicas: 3
+      replicas: 2
       diskSize: "30Gi"
       nodeSelector:
       resources:
@@ -41,8 +52,8 @@ spec:
         - "master"
         - "data"
     - component: nodes
-      replicas: 3
-      diskSize: "5Gi"
+      replicas: 2
+      diskSize: "10Gi"
       nodeSelector:
       resources:
         requests:
@@ -55,7 +66,7 @@ spec:
         - "data"
     - component: coordinators
       replicas: 3
-      diskSize: "5Gi"
+      diskSize: "10Gi"
       nodeSelector:
       resources:
         requests:
