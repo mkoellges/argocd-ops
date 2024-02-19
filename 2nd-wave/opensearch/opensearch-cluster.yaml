@@ -12,68 +12,57 @@ spec:
     monitoring:
       enable: true
     pluginsList: ["repository-s3"]
-  security:
-    config:
-      adminCredentialsSecret:
-        name: admin-credentials-secret
-      securityConfigSecret:
-        name: securityconfig-secret
-    tls:
-      transport:
-        generate: true
-      http:
-        generate: true
   dashboards:
-    opensearchCredentialsSecret:
-      name: admin-credentials-secret
-    version: "2.2.1"
+    version: "1.3.0"
     enable: true
     replicas: 1
-    resources:
-      requests:
-        memory: "1Gi"
-        cpu: "500m"
-      limits:
-        memory: "1Gi"
-        cpu: "500m"
+#    resources:
+#      requests:
+#        memory: "1Gi"
+#        cpu: "500m"
+#      limits:
+#        memory: "1Gi"
+#        cpu: "500m"
+  confMgmt:
+    smartScaler: true
   nodePools:
     - component: masters
-      replicas: 2
+      replicas: 3
       diskSize: "30Gi"
       nodeSelector:
-      resources:
-        requests:
-          memory: "2Gi"
-          cpu: "500m"
-        limits:
-          memory: "2Gi"
-          cpu: "500m"
+#      resources:
+#        requests:
+#            memory: "2Gi"
+#            cpu: "500m"
+#        limits:
+#            memory: "2Gi"
+#            cpu: "500m"
       roles:
         - "master"
         - "data"
     - component: nodes
-      replicas: 2
-      diskSize: "10Gi"
+      replicas: 3
+      diskSize: "30Gi"
       nodeSelector:
-      resources:
-        requests:
-          memory: "2Gi"
-          cpu: "500m"
-        limits:
-          memory: "2Gi"
-          cpu: "500m"
+#      resources:
+#        requests:
+#            memory: "2Gi"
+#            cpu: "500m"
+#        limits:
+#            memory: "2Gi"
+#            cpu: "500m"
       roles:
         - "data"
     - component: coordinators
       replicas: 3
-      diskSize: "10Gi"
+      diskSize: "30Gi"
       nodeSelector:
-      resources:
-        requests:
-          memory: "2Gi"
-          cpu: "500m"
-        limits:
-          memory: "2Gi"
-          cpu: "500m"
+#      resources:
+#        requests:
+#            memory: "2Gi"
+#            cpu: "500m"
+#        limits:
+#            memory: "2Gi"
+#            cpu: "500m"
       roles:
         - "ingest"
