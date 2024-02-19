@@ -54,7 +54,7 @@ spec:
       roles:
         - "data"
     - component: coordinators
-      replicas: 3
+      replicas: 1
       diskSize: "30Gi"
       nodeSelector:
 #      resources:
