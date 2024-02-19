@@ -1,0 +1,18 @@
+---
+apiVersion: opensearch.org/v1
+kind: OpenSearch
+metadata:
+  name: opensearch
+  namespace: logging
+spec:
+  nodes:
+    master: 3
+    data: 5
+    ingest: 2
+  version: "1.0.0"
+  storage:
+    storageClassName: fast
+    size: 10Gi
+  network:
+    service:
+      type: ClusterIP

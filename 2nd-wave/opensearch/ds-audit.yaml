@@ -1,0 +1,27 @@
+---
+apiVersion: opensearch.org/v1
+kind: DataStream
+metadata:
+  name: audit-data-stream
+spec:
+  indexTemplateName: audit-index-template
+  indexMapping:
+    properties:
+      timestamp:
+        type: date
+      message:
+        type: text
+  settings:
+    number_of_shards: 1
+    number_of_replicas: 1
+---
+apiVersion: opensearch.org/v1
+kind: IndexLifecyclePolicy
+metadata:
+  name: audit-data-lifecycle-policy
+spec:
+  phases:
+    delete:
+      min_age: 365d
+      actions:
+        delete: {}

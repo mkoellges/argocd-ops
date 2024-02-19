@@ -1,0 +1,27 @@
+---
+apiVersion: opensearch.org/v1
+kind: DataStream
+metadata:
+  name: container-data-stream
+spec:
+  indexTemplateName: container-index-template
+  indexMapping:
+    properties:
+      timestamp:
+        type: date
+      message:
+        type: text
+  settings:
+    number_of_shards: 1
+    number_of_replicas: 1
+---
+apiVersion: opensearch.org/v1
+kind: IndexLifecyclePolicy
+metadata:
+  name: container-data-lifecycle-policy
+spec:
+  phases:
+    delete:
+      min_age: 10d
+      actions:
+        delete: {}
