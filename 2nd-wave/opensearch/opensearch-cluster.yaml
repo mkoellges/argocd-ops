@@ -27,7 +27,7 @@ spec:
     smartScaler: true
   nodePools:
     - component: masters
-      replicas: 3
+      replicas: 1
       diskSize: "30Gi"
       nodeSelector:
 #      resources:
@@ -41,7 +41,7 @@ spec:
         - "master"
         - "data"
     - component: nodes
-      replicas: 3
+      replicas: 1 
       diskSize: "30Gi"
       nodeSelector:
 #      resources:
