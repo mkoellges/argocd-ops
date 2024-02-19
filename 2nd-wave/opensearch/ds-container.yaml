@@ -1,5 +1,5 @@
 ---
-apiVersion: opensearch.org/v1
+apiVersion: opensearch.opster.io/v1
 kind: DataStream
 metadata:
   name: container-data-stream
