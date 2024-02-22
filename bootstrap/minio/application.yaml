@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: minio
-    targetRevision: 13.0.2
+    targetRevision: 13.6.2
     helm:
       values: |
         extraEnvVars:
