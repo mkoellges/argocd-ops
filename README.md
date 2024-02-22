@@ -4,7 +4,7 @@
 
 To ensure working with your settings and ownership, clone this repo to your own github space.
 
-Change the repo settings to your github repo accordingly in file `project.yaml` 
+Change the repo settings to your github repo accordingly in file `project.yaml`
 
 ```yaml
 ...
