@@ -43,6 +43,21 @@ spec:
                     - "s3:PutObjectTagging"
                     - "s3:GetObject"
                     - "s3:DeleteObject"
+            - name: velero
+              statements:
+                - resources:
+                    - "arn:aws:s3:::velero"
+                  effect: "Allow"
+                  actions:
+                    - "s3:ListBucket"
+                - resources:
+                    - "arn:aws:s3:::velero/*"
+                  effect: "Allow"
+                  actions:
+                    - "s3:PutObject"
+                    - "s3:PutObjectTagging"
+                    - "s3:GetObject"
+                    - "s3:DeleteObject"
           usersExistingSecrets:
             - centralized-minio-users
           buckets:
