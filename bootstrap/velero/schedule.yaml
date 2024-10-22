@@ -1,0 +1,92 @@
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: daily
+  namespace: velero
+spec:
+  schedule: 0 4 * * *
+  template:
+    metadata:
+      labels: {}
+    includedNamespaces:
+      - '*'
+    includedResources:
+      - '*'
+    excludedNamespaces:
+      - kube-system
+      - databases
+    storageLocation: default
+    volumeSnapshotLocations:
+      - default
+    snapshotVolumes: false
+    ttl: 168h0m0s
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: weekly
+  namespace: velero
+spec:
+  schedule: 0 5 * * 1
+  template:
+    metadata:
+      labels: {}
+    includedNamespaces:
+      - '*'
+    includedResources:
+      - '*'
+    excludedNamespaces:
+      - kube-system
+      - databases
+    storageLocation: default
+    volumeSnapshotLocations:
+      - default
+    snapshotVolumes: false
+    ttl: 720h0m0s
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: monthly
+  namespace: velero
+spec:
+  schedule: 0 6 1 * *
+  template:
+    metadata:
+      labels: {}
+    includedNamespaces:
+      - '*'
+    includedResources:
+      - '*'
+    excludedNamespaces:
+      - kube-system
+      - databases
+    storageLocation: default
+    volumeSnapshotLocations:
+      - default
+    snapshotVolumes: false
+    ttl: 8760h0m0s
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: annually
+  namespace: velero
+spec:
+  schedule: 0 7 1 1 *
+  template:
+    metadata:
+      labels: {}
+    includedNamespaces:
+      - '*'
+    includedResources:
+      - '*'
+    excludedNamespaces:
+      - kube-system
+      - databases
+    storageLocation: default
+    volumeSnapshotLocations:
+      - default
+    snapshotVolumes: false
+    ttl: 87600h0m0s

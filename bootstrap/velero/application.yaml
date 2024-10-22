@@ -31,37 +31,6 @@ spec:
             namespace: monitoring
             additionalLabels:
               kubernetes.she.net/prometheus-instance: default
-        configuration:
-          backupStorageLocation:
-          - name: default
-            provider: aws
-            bucket: velero
-            prefix: dev
-            accessMode: ReadWrite
-            credential:
-              name: velero-s3-credentials
-              key: cloud
-            config: 
-              region: eu-01
-              s3Url: "https://minio.minio.svc.cluster.local:9001" 
-              insecureSkipTLSVerify: true
-        schedules:
-          mybackup:
-            disabled: false
-            labels:
-              myenv: dev
-            annotations:
-              myenv: dev
-            schedule: "0 0 * * *"
-            useOwnerReferencesInBackup: false
-            paused: false
-            template:
-              ttl: "240h"
-              storageLocation: default
-              excludedNamespaceScopedResources:
-              - persistentVolumeClaims
-              excludedClusterScopedResources:
-              - persistentVolumes
   syncPolicy:
     automated:
       prune: true
