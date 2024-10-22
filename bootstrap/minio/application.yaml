@@ -53,6 +53,13 @@ spec:
               quota:
                 type: set
                 size: 10GiB
+            - name: velero
+              region: eu-01
+              versioning: false
+              withLock: true
+              quota:
+                type: set
+                size: 1GiB
         ingress:
           enabled: true
           ingressClassName: nginx
