@@ -22,7 +22,7 @@ spec:
             name: plugins
         configuration:
           backupStorageLocation:
-          - name: s3-minio
+          - name: default
             provider: s3
             bucket: velero
             prefix: dev
