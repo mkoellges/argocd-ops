@@ -23,7 +23,7 @@ spec:
         configuration:
           backupStorageLocation:
           - name: default
-            provider: s3
+            provider: aws
             bucket: velero
             prefix: dev
             accessMode: ReadWrite
