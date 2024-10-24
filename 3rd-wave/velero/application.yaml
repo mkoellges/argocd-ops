@@ -41,6 +41,7 @@ spec:
               region: eu-01
               s3ForcePathStyle: "true"
               s3Url: "http://minio.minio.svc.cluster.local:9000"
+              insecureSkipTLSVerify: true
             credentials:
               secretKeyRef:
                 name: velero-s3-credentials
