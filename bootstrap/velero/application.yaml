@@ -37,10 +37,10 @@ spec:
             bucket: velero
             default: true
             prefix: dev
-              config:
-                region: eu-01
-                s3ForcePathStyle: "true"
-                s3Url: "http://minio.minio.svc.cluster.local:9000"
+            config:
+              region: eu-01
+              s3ForcePathStyle: "true"
+              s3Url: "http://minio.minio.svc.cluster.local:9000"
             credentials:
               secretKeyRef:
                 name: velero-s3-credentials
