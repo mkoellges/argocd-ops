@@ -20,6 +20,7 @@ spec:
             value: "minio"
         global:
           storageClass: standard
+        resourcesPreset: "large"
         mode: distributed
         statefulset:
           replicaCount: 5
