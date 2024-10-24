@@ -15,6 +15,6 @@ spec:
   source:
     chart: pgo
     repoURL: https://mkoellges.github.io/library/charts
-    targetRevision: "5.5.0"
+    targetRevision: "5.3.1"
     helm:
       releaseName: pgo
