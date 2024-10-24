@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: 3nd-wave
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "3"
   namespace: argocd
 spec:
   project: default
