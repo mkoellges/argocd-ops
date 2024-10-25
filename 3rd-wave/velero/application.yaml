@@ -31,7 +31,7 @@ spec:
             namespace: monitoring
             additionalLabels:
               kubernetes.she.net/prometheus-instance: default
-        backupStorageLocations:
+        backupStorageLocation:
           - name: default
             provider: aws
             bucket: velero
