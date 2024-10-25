@@ -26,6 +26,9 @@ spec:
           replicaCount: 5
           zones: 1
           drivesPerNode: 1
+        tls:
+          enabled: true
+          existingSecret: minio-tls
         provisioning:
           enabled: true
           policies:
