@@ -28,6 +28,7 @@ spec:
           drivesPerNode: 1
         tls:
           enabled: true
+          existingSecret: minio-tls
         provisioning:
           enabled: true
           policies:
