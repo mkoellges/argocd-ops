@@ -1,7 +1,0 @@
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: minio-cert-issuer
-spec:
-  ca:
-    secretName: minio-ca-keypair
