@@ -28,7 +28,7 @@ spec:
           drivesPerNode: 1
         tls:
           enabled: true
-          existingSecret: minio-tls
+          existingSecret: minio.koellgma.de-tls
         provisioning:
           enabled: true
           policies:
