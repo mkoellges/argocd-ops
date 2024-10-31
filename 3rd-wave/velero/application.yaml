@@ -47,7 +47,7 @@ spec:
                   name: velero-s3-credentials
                   key: cloud
           volumeSnapshotLocation:
-            - name: velero-snapshots
+            - name: default
               provider: aws
               credential:
                 name: velero-s3-credentials
