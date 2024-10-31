@@ -15,6 +15,6 @@ spec:
     name: velero-s3-credentials
   default: true
   objectStorage:
-    bucket: velero-de02
+    bucket: velero
     prefix: prod
   provider: aws
