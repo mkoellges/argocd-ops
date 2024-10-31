@@ -48,25 +48,15 @@ spec:
                   key: cloud
           volumeSnapshotLocation:
             - name: velero-snapshots
-              # provider is the name for the volume snapshot provider.
-              provider:
+              provider: aws
               credential:
-                # name of the secret used by this volumeSnapshotLocation.
-                name:
-                # name of key that contains the secret data to be used.
-                key:
-              # Additional provider-specific configuration. See link above
-              # for details of required/optional fields for your provider.
-              config: {}
-            #    region:
-            #    apiTimeout:
-            #    resourceGroup:
-            #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
-            #    subscriptionId:
-            #    incremental:
-            #    snapshotLocation:
-            #    project:
-
+                name: velero-s3-credentials
+                key: cloud
+              config:
+                region: eu-01
+                s3ForcePathStyle: "true"
+                s3Url: "http://minio.minio.svc.cluster.local:9000"
+                insecureSkipTLSVerify: tru
   syncPolicy:
     automated:
       prune: true
