@@ -85,6 +85,9 @@ spec:
           tls: true
           selfSigned: false
           annotations:
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
             nginx.ingress.kubernetes.io/client-body-buffer-size: "100M"
           hostname: minio.koellgma.de
@@ -93,6 +96,9 @@ spec:
           tls: true
           selfSigned: false
           annotations:
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
             nginx.ingress.kubernetes.io/client-body-buffer-size: "100M"
           ingressClassName: nginx
