@@ -18,3 +18,8 @@ spec:
     targetRevision: "2.16.1"
     helm:
       releaseName: sealed-secrets
+      parameters:
+        - name: skipRecreate
+          value: "true"
+        - name: keyRenewPeriod
+          value: "0"
