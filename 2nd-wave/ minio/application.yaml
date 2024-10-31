@@ -97,13 +97,6 @@ spec:
             nginx.ingress.kubernetes.io/client-body-buffer-size: "100M"
           ingressClassName: nginx
           hostname: minio-api.koellgma.de
-          extraHosts:
-            - name: postgres.minio-api.koellgma.de
-              path: /
-          extraTls:
-            - hosts:
-                - postgres.minio-api.koellgma.de
-              secretName: alternate-secrets-minio-tls
         persistence:
           enabled: true
           size: 20Gi
