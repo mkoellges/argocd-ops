@@ -138,7 +138,7 @@ spec:
                   pvc:
                     accessModes:
                       - ReadWriteOnce
-                    storageClass: encrypted-csi
+                    storageClass: standard
                 nodeSelector:
                 roles:
                   - "cluster_manager"
