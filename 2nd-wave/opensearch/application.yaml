@@ -10,14 +10,72 @@ spec:
   source:
     chart: opensearch-operator
     repoURL: https://opensearch-project.github.io/opensearch-k8s-operator/
-    targetRevision: 2.7.0
+    targetRevision: 2.6.1
     helm:
       values: |
         clusterName: "opensearch-cluster"
-        singleNode: true
-        replicas: 1
         persistence:
           storageClass: "Standard"
+        confMgmt:
+          smartScaler: true
+        dashboards:
+          enable: true
+          version: 2.11.1
+          replicas: 1
+          opensearchCredentialsSecret:
+            name: dashboards-credentials-secret
+        nodePools:
+          - component: nodes
+            replicas: 3
+            diskSize: "1Gi"
+            persistence:
+              pvc:
+                accessModes:
+                  - ReadWriteOnce
+                storageClass: block-encrypted-storage-beta
+            nodeSelector:
+            roles:
+              - "cluster_manager"
+              - "data"
+              - "ingest"
+            pdb:
+              enable: true
+              maxUnavailable: 1
+        users:
+          - name: fluentbit
+            passwordFrom:
+              name: fluentbit-password
+              key: password
+            backendRoles:
+              - kibana_user
+            roles:
+              - fluentbit
+        roles:
+          - name: fluentbit
+            clusterPermissions:
+              - cluster_composite_ops
+              - cluster_monitor
+            indexPermissions:
+              - indexPatterns:
+                  - audit-*
+                  - container-*
+                  - access-*
+                allowedActions:
+                  - create_index
+                  - index
+                  - write
+        settings:
+          security:
+            config:
+              adminCredentialsSecret:
+                name: admin-credentials-secret
+              securityConfigSecret:
+                name: securityconfig-secret
+            tls:
+              transport:
+                generate: true
+              http:
+                generate: true
         ingress:
           enabled: true
           annotations:
@@ -33,6 +91,12 @@ spec:
           enabled: false
           labels:
             release: prometheus-stack
+        indexTemplates:
+        global:
+        defaultTemplates:
+          access: true
+          audit: true
+          container: true
   destination:
     server: https://kubernetes.default.svc
     namespace: logging
