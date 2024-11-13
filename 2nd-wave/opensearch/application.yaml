@@ -12,7 +12,6 @@ spec:
     repoURL: https://opensearch-project.github.io/opensearch-k8s-operator/
     targetRevision: 2.7.0
     helm:
-      releaseName: opensearch-operator
       values: |
         clusterName: "opensearch-cluster"
         singleNode: true
