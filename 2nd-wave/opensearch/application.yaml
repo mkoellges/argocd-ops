@@ -133,8 +133,7 @@ spec:
             nodePools:
               - component: nodes
                 replicas: 3
-                diskSize: "2500Gi"
-                jvm: -Xmx4096M -Xms4096M
+                diskSize: "1Gi"
                 persistence:
                   pvc:
                     accessModes:
