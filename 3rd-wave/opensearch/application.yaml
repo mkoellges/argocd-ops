@@ -14,6 +14,9 @@ spec:
     helm:
       releaseName: opensearch-operator
       values: |
+        clusterName: "opensearch-cluster"
+        singleNode: true
+        replicas: 1
         persistence:
           storageClass: "Standard"
         ingress:
