@@ -1,106 +1,87 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+apiVersion: opensearch.opster.io/v1
+kind: OpenSearchCluster
 metadata:
-  name: opensearch
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
-  namespace: argocd
+  name: opensearch-cluster
+  namespace: logging
 spec:
-  project: default
-  source:
-    chart: opensearch-operator
-    repoURL: https://opensearch-project.github.io/opensearch-k8s-operator/
-    targetRevision: 2.6.1
-    helm:
-      values: |
-        clusterName: "opensearch-cluster"
-        confMgmt:
-          smartScaler: true
-        dashboards:
-          enable: true
-          version: 2.11.1
-          replicas: 1
-          opensearchCredentialsSecret:
-            name: dashboards-credentials-secret
-        nodePools:
-          - component: nodes
-            replicas: 3
-            diskSize: "1Gi"
-            persistence:
-              pvc:
-                accessModes:
-                  - ReadWriteOnce
-                storageClass: standard
-            nodeSelector:
-            roles:
-              - "cluster_manager"
-              - "data"
-              - "ingest"
-            pdb:
-              enable: true
-              maxUnavailable: 1
-        users:
-          - name: fluentbit
-            passwordFrom:
-              name: fluentbit-password
-              key: password
-            backendRoles:
-              - kibana_user
-            roles:
-              - fluentbit
-        roles:
-          - name: fluentbit
-            clusterPermissions:
-              - cluster_composite_ops
-              - cluster_monitor
-            indexPermissions:
-              - indexPatterns:
-                  - audit-*
-                  - container-*
-                  - access-*
-                allowedActions:
-                  - create_index
-                  - index
-                  - write
-        settings:
-          security:
-            config:
-              adminCredentialsSecret:
-                name: admin-credentials-secret
-              securityConfigSecret:
-                name: securityconfig-secret
-            tls:
-              transport:
-                generate: true
-              http:
-                generate: true
-        ingress:
-          enabled: true
-          annotations:
-            kubernetes.io/ingress.class: "nginx"
-            cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          hosts:
-            - opensearch.koellgma.de
-          tls: 
-            - secretName: opensearch-tls
-              hosts:
-                - opensearch.koellgma.de
-        serviceMonitor:
-          enabled: false
-          labels:
-            release: prometheus-stack
-        indexTemplates:
-        global:
-        defaultTemplates:
-          access: true
-          audit: true
-          container: true
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: logging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+  clusterName: "opensearch-cluster"
+  confMgmt:
+    smartScaler: true
+  dashboards:
+    enable: true
+    replicas: 1
+    opensearchCredentialsSecret:
+      name: dashboards-credentials-secret
+  nodePools:
+    - component: nodes
+      replicas: 3
+      diskSize: "1Gi"
+      persistence:
+        pvc:
+          accessModes:
+            - ReadWriteOnce
+          storageClass: standard
+      nodeSelector: {}
+      roles:
+        - "cluster_manager"
+        - "data"
+        - "ingest"
+      pdb:
+        enable: true
+        maxUnavailable: 1
+  users:
+    - name: fluentbit
+      passwordFrom:
+        name: fluentbit-password
+        key: password
+      backendRoles:
+        - kibana_user
+      roles:
+        - fluentbit
+  roles:
+    - name: fluentbit
+      clusterPermissions:
+        - cluster_composite_ops
+        - cluster_monitor
+      indexPermissions:
+        - indexPatterns:
+            - audit-*
+            - container-*
+            - access-*
+          allowedActions:
+            - create_index
+            - index
+            - write
+  settings:
+    security:
+      config:
+        adminCredentialsSecret:
+          name: admin-credentials-secret
+        securityConfigSecret:
+          name: securityconfig-secret
+      tls:
+        transport:
+          generate: true
+        http:
+          generate: true
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - opensearch.koellgma.de
+    tls:
+      - secretName: opensearch-tls
+        hosts:
+          - opensearch.koellgma.de
+  serviceMonitor:
+    enabled: false
+    labels:
+      release: prometheus-stack
+  indexTemplates:
+    global:
+      defaultTemplates:
+        access: true
+        audit: true
+        container: true
