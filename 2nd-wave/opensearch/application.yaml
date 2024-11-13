@@ -4,31 +4,25 @@ metadata:
   name: opensearch-cluster
   namespace: logging
 spec:
-  clusterName: "opensearch-cluster"
-  confMgmt:
-    smartScaler: true
+  general:
+    serviceName: "opensearch-cluster"
+    version: 1.3.1
   dashboards:
     enable: true
+    version: 1.3.1
     replicas: 1
     opensearchCredentialsSecret:
       name: dashboards-credentials-secret
+  confMgmt:
+    smartScaler: true
   nodePools:
     - component: nodes
       replicas: 3
       diskSize: "1Gi"
-      persistence:
-        pvc:
-          accessModes:
-            - ReadWriteOnce
-          storageClass: standard
-      nodeSelector: {}
       roles:
         - "cluster_manager"
         - "data"
         - "ingest"
-      pdb:
-        enable: true
-        maxUnavailable: 1
   users:
     - name: fluentbit
       passwordFrom:
