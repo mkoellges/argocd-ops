@@ -134,7 +134,6 @@ spec:
               - component: nodes
                 replicas: 3
                 diskSize: "1Gi"
-                jvm: -Xmx4096M -Xms4096M
                 persistence:
                   pvc:
                     accessModes:
