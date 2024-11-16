@@ -133,7 +133,7 @@ spec:
             nodePools:
               - component: nodes
                 replicas: 3
-                diskSize: "1Gi"
+                diskSize: "5Gi"
                 persistence:
                   pvc:
                     accessModes:
