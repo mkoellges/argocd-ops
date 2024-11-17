@@ -1,0 +1,201 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: opensearch
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://she-informationstechnologie.github.io/charts/
+    chart: logging-opensearch
+    targetRevision: 1.2.1
+    helm:
+      values: |
+        fluentbit:
+          config:
+            inputs: |
+              [INPUT]
+                  Name tail
+                  Path /var/log/containers/*.log
+                  Exclude_Path *ingress-nginx*
+                  Tag kube.*
+                  multiline.parser cri
+                  Mem_Buf_Limit 5m
+                  Skip_Long_Lines On
+                  Buffer_Chunk_Size 15m
+                  Buffer_Max_Size 64m
+
+              [INPUT]
+                  Name tail
+                  Path /var/log/containers/*ingress*.log
+                  Tag ingress-nginx.*
+                  multiline.parser cri
+                  Mem_Buf_Limit 5m
+                  Buffer_Chunk_Size 15m
+                  Buffer_Max_Size 64m
+
+              [INPUT]
+                  Name tail
+                  Path /var/log/audit/*.log
+                  Tag audit.*
+                  Parser json
+                  Mem_Buf_Limit 5m
+                  Skip_Long_Lines On
+                  Buffer_Chunk_Size 15m
+                  Buffer_Max_Size 64m
+
+            filters: |
+              [FILTER]
+                  Name kubernetes
+                  Match kube.*
+                  Merge_Log On
+                  Keep_Log Off
+                  K8S-Logging.Parser On
+                  K8S-Logging.Exclude On
+
+              [FILTER]
+                  Name kubernetes
+                  Match ingress-nginx.*
+                  Merge_Log On
+                  Keep_Log Off
+                  K8S-Logging.Parser On
+                  K8S-Logging.Exclude On
+
+            outputs: |
+              [OUTPUT]
+                  Name opensearch
+                  Match kube.*
+                  Host opensearch-cluster.logging.svc
+                  Port 9200
+                  Index container-%Y.%m
+                  Retry_Limit 3
+                  Suppress_Type_Name On
+                  tls On
+                  tls.verify Off
+                  HTTP_User fluentbit
+                  HTTP_Passwd manager123
+                  Trace_Error On
+                  Replace_Dots On
+                  Buffer_Size 2MB
+
+              [OUTPUT]
+                  Name opensearch
+                  Match audit.*
+                  Host opensearch-cluster.logging.svc
+                  Port 9200
+                  Index audit-%Y.%m
+                  Retry_Limit 3
+                  Suppress_Type_Name On
+                  tls On
+                  tls.verify Off
+                  HTTP_User fluentbit
+                  HTTP_Passwd manager123
+                  Trace_Error On
+                  Buffer_Size 2MB
+
+              [OUTPUT]
+                  Name opensearch
+                  Match ingress-nginx.*
+                  Host opensearch-cluster.logging.svc
+                  Port 9200
+                  Index access-logs-%Y.%m
+                  Retry_Limit 3
+                  Suppress_Type_Name On
+                  tls On
+                  tls.verify Off
+                  HTTP_User fluentbit
+                  HTTP_Passwd manager123
+                  Trace_Error On
+                  Replace_Dots On
+                  Buffer_Size 2MB
+
+            customParsers: |
+              [PARSER]
+                  Name docker_no_time
+                  Format json
+                  Time_Keep Off
+                  Time_Key time
+                  Time_Format %Y-%m-%dT%H:%M:%S.%L
+
+              [PARSER]
+                  Name        accesslogs
+                  Format      regex
+                  Regex       ^(?<remote_addr>[^ ]+) - (?<user_identity>[^ ]+) \[(?<timestamp>[^\]]+)\] \"(?<method>\S+)(?: +(?<request_uri>\S+)(?: +(?<protocol>\S+))?)?\" (?<status>\d+) (?<bytes_sent>\d+) \"(?<referrer>[^"]*)\" \"(?<user_agent>[^"]*)\" (?<request_length>[^ ]*) (?<request_time>[^ ]*) \[(?<proxy_upstream_name>[^ ]*)\] \[(?<proxy_alternative_upstream_name>[^ ]*)\] (?<upstream_addr>[^ ]*) (?<upstream_response_length>[^ ]*) (?<upstream_response_time>[^ ]*) (?<upstream_status>[^ ]*) (?<reg_id>[^ ]*).*$
+
+        opensearch:
+          settings:
+            security:
+              tls:
+                http:
+                  generate: true
+                  secret:
+                    name: opensearch-tls
+            nodePools:
+              - component: nodes
+                replicas: 3
+                diskSize: "5Gi"
+                persistence:
+                  pvc:
+                    accessModes:
+                      - ReadWriteOnce
+                    storageClass: standard
+                nodeSelector:
+                roles:
+                  - "cluster_manager"
+                  - "data"
+                  - "ingest"
+                pdb:
+                  enable: true
+                  maxUnavailable: 1
+          ingress:
+            enabled: true
+            className: "nginx"
+            annotations:
+              nginx.ingress.kubernetes.io/proxy-body-size: "0"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+              cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            hosts:
+              - host: opensearch.koellgma.de
+                paths:
+                  - path: /
+                    pathType: ImplementationSpecific
+            tls:
+              - hosts:
+                  - opensearch.koellgma.de
+          ismPolicies:
+            defaultState: hot
+            ismTemplate: 
+              indexPatterns:
+                - container
+                - ".ds-container*"
+              priority: 2
+            states:
+              - name: hot
+                actions:
+                  - replicaCount:
+                        numberOfReplicas: 1
+                transitions:
+                  - stateName: warm
+                    conditions:
+                        minIndexAge: "2d"
+              - name: warm
+                actions:
+                  - replicaCount:
+                        numberOfReplicas: 1
+                transitions:
+                  - stateName: delete
+                    conditions:
+                        minIndexAge: "5d"
+              - name: delete
+                actions:
+                  - delete: {}
+  syncPolicy:
+    automated:
+      selfHeal: false
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    name: in-cluster
+    namespace: logging
