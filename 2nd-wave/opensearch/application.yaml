@@ -124,12 +124,12 @@ spec:
 
         opensearch:
           settings:
-        #    security:
-        #      tls:
-        #        http:
-        #          generate: true
-        #          secret:
-        #            name: opensearch-tls
+            security:
+              tls:
+                http:
+                  generate: true
+                  secret:
+                    name: opensearch-tls
             nodePools:
               - component: nodes
                 replicas: 3
