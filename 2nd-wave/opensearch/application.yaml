@@ -73,7 +73,7 @@ spec:
                   tls On
                   tls.verify Off
                   HTTP_User fluentbit
-                  HTTP_Passwd ${password}
+                  HTTP_Passwd manager123
                   Trace_Error On
                   Replace_Dots On
                   Buffer_Size 2MB
@@ -89,7 +89,7 @@ spec:
                   tls On
                   tls.verify Off
                   HTTP_User fluentbit
-                  HTTP_Passwd ${password}
+                  HTTP_Passwd manager123
                   Trace_Error On
                   Buffer_Size 2MB
 
@@ -104,7 +104,7 @@ spec:
                   tls On
                   tls.verify Off
                   HTTP_User fluentbit
-                  HTTP_Passwd ${password}
+                  HTTP_Passwd manager123
                   Trace_Error On
                   Replace_Dots On
                   Buffer_Size 2MB
