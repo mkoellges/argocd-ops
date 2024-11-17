@@ -8,128 +8,56 @@ spec:
   source:
     repoURL: https://she-informationstechnologie.github.io/charts/
     chart: logging-opensearch
-    targetRevision: 1.2.1
+    targetRevision: 1.1.0
     helm:
       values: |
         fluentbit:
+          luaScripts:
+            kubernetes.lua: |
+              function cb_convert_labels(tag, timestamp, record)
+                if record["autodiscover.event"]["kubernetes"] == nil then
+                return 0, 0, 0
+                end
+                for k, v in pairs(record["autodiscover.event"]["kubernetes"]["labels"])
+                do
+                if (v ~= nil and type(v) ~= "table") then
+                    if k == "app" then
+                    k = "app_"  -- Rename 'app' to 'app_'
+                    end
+                    record["autodiscover.event"]["kubernetes"]["labels"][k] = {[k .. "Name"] = v}
+                end
+                end
+                return 2, timestamp, record
+              end
+              function dedot(tag, timestamp, record)
+                if record["kubernetes"] == nil then
+                  return 0, 0, 0
+                end
+                dedot_keys(record["kubernetes"]["annotations"])
+                dedot_keys(record["kubernetes"]["labels"])
+                return 1, timestamp, record
+              end
+              function dedot_keys(map)
+                if map == nil then
+                  return
+                end
+                for k, v in pairs(map) do
+                  dedotted = string.gsub(k, "%.", "_")
+                  if k ~= dedotted then
+                    map[dedotted] = v
+                    map[k] = nil
+                  end
+                end
+              end
           config:
-            inputs: |
-              [INPUT]
-                  Name tail
-                  Path /var/log/containers/*.log
-                  Exclude_Path *ingress-nginx*
-                  Tag kube.*
-                  multiline.parser cri
-                  Mem_Buf_Limit 5m
-                  Skip_Long_Lines On
-                  Buffer_Chunk_Size 15m
-                  Buffer_Max_Size 64m
-
-              [INPUT]
-                  Name tail
-                  Path /var/log/containers/*ingress*.log
-                  Tag ingress-nginx.*
-                  multiline.parser cri
-                  Mem_Buf_Limit 5m
-                  Buffer_Chunk_Size 15m
-                  Buffer_Max_Size 64m
-
-              [INPUT]
-                  Name tail
-                  Path /var/log/audit/*.log
-                  Tag audit.*
-                  Parser json
-                  Mem_Buf_Limit 5m
-                  Skip_Long_Lines On
-                  Buffer_Chunk_Size 15m
-                  Buffer_Max_Size 64m
-
-            filters: |
+            filters:
               [FILTER]
-                  Name kubernetes
-                  Match kube.*
-                  Merge_Log On
-                  Keep_Log Off
-                  K8S-Logging.Parser On
-                  K8S-Logging.Exclude On
-
-              [FILTER]
-                  Name kubernetes
-                  Match ingress-nginx.*
-                  Merge_Log On
-                  Keep_Log Off
-                  K8S-Logging.Parser On
-                  K8S-Logging.Exclude On
-
-            outputs: |
-              [OUTPUT]
-                  Name opensearch
-                  Match kube.*
-                  Host opensearch-cluster.logging.svc
-                  Port 9200
-                  Index container-%Y.%m
-                  Retry_Limit 3
-                  Suppress_Type_Name On
-                  tls On
-                  tls.verify Off
-                  HTTP_User fluentbit
-                  HTTP_Passwd manager123
-                  Trace_Error On
-                  Replace_Dots On
-                  Buffer_Size 2MB
-
-              [OUTPUT]
-                  Name opensearch
-                  Match audit.*
-                  Host opensearch-cluster.logging.svc
-                  Port 9200
-                  Index audit-%Y.%m
-                  Retry_Limit 3
-                  Suppress_Type_Name On
-                  tls On
-                  tls.verify Off
-                  HTTP_User fluentbit
-                  HTTP_Passwd manager123
-                  Trace_Error On
-                  Buffer_Size 2MB
-
-              [OUTPUT]
-                  Name opensearch
-                  Match ingress-nginx.*
-                  Host opensearch-cluster.logging.svc
-                  Port 9200
-                  Index access-logs-%Y.%m
-                  Retry_Limit 3
-                  Suppress_Type_Name On
-                  tls On
-                  tls.verify Off
-                  HTTP_User fluentbit
-                  HTTP_Passwd manager123
-                  Trace_Error On
-                  Replace_Dots On
-                  Buffer_Size 2MB
-
-            customParsers: |
-              [PARSER]
-                  Name docker_no_time
-                  Format json
-                  Time_Keep Off
-                  Time_Key time
-                  Time_Format %Y-%m-%dT%H:%M:%S.%L
-
-              [PARSER]
-                  Name        accesslogs
-                  Format      regex
-                  Regex       ^(?<remote_addr>[^ ]+) - (?<user_identity>[^ ]+) \[(?<timestamp>[^\]]+)\] \"(?<method>\S+)(?: +(?<request_uri>\S+)(?: +(?<protocol>\S+))?)?\" (?<status>\d+) (?<bytes_sent>\d+) \"(?<referrer>[^"]*)\" \"(?<user_agent>[^"]*)\" (?<request_length>[^ ]*) (?<request_time>[^ ]*) \[(?<proxy_upstream_name>[^ ]*)\] \[(?<proxy_alternative_upstream_name>[^ ]*)\] (?<upstream_addr>[^ ]*) (?<upstream_response_length>[^ ]*) (?<upstream_response_time>[^ ]*) (?<upstream_status>[^ ]*) (?<reg_id>[^ ]*).*$
-
+                Name    lua
+                Match   kube.*
+                script  /fluent-bit/scripts/kubernetes.lua
+                call    dedot
         opensearch:
           settings:
-            security:
-              tls:
-                http:
-                  generate: true
-                  secret:
-                    name: opensearch-tls
             nodePools:
               - component: nodes
                 replicas: 3
@@ -151,10 +79,7 @@ spec:
             enabled: true
             className: "nginx"
             annotations:
-              nginx.ingress.kubernetes.io/proxy-body-size: "0"
-              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-              cert-manager.io/cluster-issuer: "letsencrypt-prod"
+              cert-manager.io/cluster-issuer: "letsencrypt-prod" 
             hosts:
               - host: opensearch.koellgma.de
                 paths:
