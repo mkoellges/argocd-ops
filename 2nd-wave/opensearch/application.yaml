@@ -11,51 +11,6 @@ spec:
     targetRevision: 1.1.0
     helm:
       values: |
-        fluentbit:
-          luaScripts:
-            kubernetes.lua: |
-              function cb_convert_labels(tag, timestamp, record)
-                if record["autodiscover.event"]["kubernetes"] == nil then
-                return 0, 0, 0
-                end
-                for k, v in pairs(record["autodiscover.event"]["kubernetes"]["labels"])
-                do
-                if (v ~= nil and type(v) ~= "table") then
-                  if k == "app" then
-                  k = "app_"  -- Rename 'app' to 'app_'
-                  end
-                  record["autodiscover.event"]["kubernetes"]["labels"][k] = {[k .. "Name"] = v}
-                end
-                end
-                return 2, timestamp, record
-              end
-              function dedot(tag, timestamp, record)
-                if record["kubernetes"] == nil then
-                  return 0, 0, 0
-                end
-                dedot_keys(record["kubernetes"]["annotations"])
-                dedot_keys(record["kubernetes"]["labels"])
-                return 1, timestamp, record
-              end
-              function dedot_keys(map)
-                if map == nil then
-                  return
-                end
-                for k, v in pairs(map) do
-                  dedotted = string.gsub(k, "%.", "_")
-                  if k ~= dedotted then
-                    map[dedotted] = v
-                    map[k] = nil
-                  end
-                end
-              end
-          config:
-            filters:
-              [FILTER]
-                Name    lua
-                Match   kube.*
-                script  /fluent-bit/scripts/kubernetes.lua
-                call    dedot
         opensearch:
           settings:
             nodePools:
