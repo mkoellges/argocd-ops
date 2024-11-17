@@ -21,10 +21,10 @@ spec:
                 for k, v in pairs(record["autodiscover.event"]["kubernetes"]["labels"])
                 do
                 if (v ~= nil and type(v) ~= "table") then
-                    if k == "app" then
-                    k = "app_"  -- Rename 'app' to 'app_'
-                    end
-                    record["autodiscover.event"]["kubernetes"]["labels"][k] = {[k .. "Name"] = v}
+                  if k == "app" then
+                  k = "app_"  -- Rename 'app' to 'app_'
+                  end
+                  record["autodiscover.event"]["kubernetes"]["labels"][k] = {[k .. "Name"] = v}
                 end
                 end
                 return 2, timestamp, record
@@ -87,7 +87,7 @@ spec:
                     pathType: ImplementationSpecific
             tls:
               - hosts:
-                  - opensearch.koellgma.de
+                - opensearch.koellgma.de
           ismPolicies:
             defaultState: hot
             ismTemplate: 
@@ -99,19 +99,19 @@ spec:
               - name: hot
                 actions:
                   - replicaCount:
-                        numberOfReplicas: 1
+                      numberOfReplicas: 1
                 transitions:
                   - stateName: warm
                     conditions:
-                        minIndexAge: "2d"
+                      minIndexAge: "2d"
               - name: warm
                 actions:
                   - replicaCount:
-                        numberOfReplicas: 1
+                      numberOfReplicas: 1
                 transitions:
                   - stateName: delete
                     conditions:
-                        minIndexAge: "5d"
+                      minIndexAge: "5d"
               - name: delete
                 actions:
                   - delete: {}
