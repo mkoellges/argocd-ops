@@ -163,6 +163,33 @@ spec:
             tls:
               - hosts:
                   - opensearch.koellgma.de
+          ismPolicies:
+            defaultState: hot
+            ismTemplate: 
+              indexPatterns:
+                - container
+                - ".ds-container*"
+              priority: 2
+            states:
+              - name: hot
+                actions:
+                  - replicaCount:
+                        numberOfReplicas: 1
+                transitions:
+                  - stateName: warm
+                    conditions:
+                        minIndexAge: "2d"
+              - name: warm
+                actions:
+                  - replicaCount:
+                        numberOfReplicas: 1
+                transitions:
+                  - stateName: delete
+                    conditions:
+                        minIndexAge: "5d"
+              - name: delete
+                actions:
+                  - delete: {}
   syncPolicy:
     automated:
       selfHeal: false
