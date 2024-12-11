@@ -24,7 +24,7 @@ spec:
           
         resourcesPreset: "large"
         mode: distributed
-        
+
         statefulset:
           replicaCount: 5
           zones: 1
@@ -90,7 +90,7 @@ spec:
                 
         ingress:
           enabled: true
-          ingressClassName: nginx
+          ingressClassName: nginx-internal
           tls: true
           selfSigned: false
           annotations:

@@ -23,7 +23,7 @@ spec:
             enabled: true
             service:
               annotations:
-                ingressClassName: nginx
+                ingressClassName: nginx-internal
           nodeSelector:
             ingress: worker
   destination:

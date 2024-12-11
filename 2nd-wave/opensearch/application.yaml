@@ -149,7 +149,7 @@ spec:
                   maxUnavailable: 1
           ingress:
             enabled: true
-            className: "nginx"
+            className: "nginx-internal"
             annotations:
               nginx.ingress.kubernetes.io/proxy-body-size: "0"
               nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
